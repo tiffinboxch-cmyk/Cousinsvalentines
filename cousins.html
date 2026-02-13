@@ -11,7 +11,7 @@
 <style>
 body {
     margin: 0;
-    font-family: 'Great Vibes', cursive; /* only change here */
+    font-family: 'Great Vibes', cursive;
     background: #ffc0cb;
     text-align: center;
     overflow-x: hidden;
@@ -108,8 +108,8 @@ input[type=password] {
     border-radius:25px;
     box-shadow: 0 0 30px pink;
     max-width:90%;
-    max-height:80vh;
-    overflow-y:auto;
+    max-height:90vh; /* increased from 80vh */
+    overflow-y:auto;  /* scroll for long text */
     text-align:center;
     z-index:1000;
     opacity: 0;
@@ -122,14 +122,10 @@ input[type=password] {
 
 /* Glowing pink text inside popup */
 #popupText {
-    font-size: 1.4rem; /* default slightly smaller than before */
+    font-size: 1.4rem;
     color: #ff69b4;
     text-shadow: 0 0 5px #ffb6c1, 0 0 10px #ff69b4;
-}
-
-/* Special style for photo5 popup */
-#popupText.photo5 {
-    font-size: 1.1rem; /* smaller font so it fits the long text */
+    word-break: break-word;
 }
 
 @keyframes fadeIn {
@@ -210,8 +206,8 @@ input[type=password] {
 <!-- Screen 2 -->
 <div class="screen" id="s2">
     <h1>What’s the favouite memory of the cousins?</h1>
-    <button onclick="quiz()">3rd floor sarakku parties🍻</button>
-    <button onclick="quiz()">Pondy beach walks🌊</button>
+    <button onclick="quiz()">3rd floor sarakku parties🍻</button>
+    <button onclick="quiz()">Pondy beach walks🌊</button>
     <button onclick="quiz()">All of us sharing the same bed💝</button>
     <button onclick="quiz()">Marriage functions🪅</button>
 </div>
@@ -221,29 +217,29 @@ input[type=password] {
     <h1>SIXXX 💕</h1>
     <div class="gallery" style="display:grid; grid-template-columns: repeat(4,1fr); gap:10px; justify-items:center;">
         <div>
-            <img src="photo11.jpg" onclick="note('Varshuu you brighten up every place wherever you go. Yaaruku enna prechena naalum firstu varuvee. Bro code mattum adichirada . And kavalapadatha Area counselor ku onnu na naanga varuvom. Eppomee Karpurama iruu. I lovee you 💖')">
+            <img src="photo11.jpg" onclick="note('Varshuu you brighten up every place wherever you go. Yaaruku enna prechena naalum firstu varuvee. Bro code mattum adichirada. And kavalapadatha Area counselor ku onnu na naanga varuvom. Eppomee Karpurama iruu. I lovee you 💖')">
             <div class="caption">Mommy of the group</div>
         </div>
         <div>
-            <img src="photo22.jpg" onclick="note('Kirii ennodaa Akka  Kudumbathula enna vishyam naalum unkita keta therinjrum. You are destined for greatness, unakke puriyum oru naal. Inimel konjam sambavam panrada kammi pannanum namma . Whatever happens, enna aanalum, We are always here for you. IM ALWAYS HERE FOR YOU ❤️ ')">
+            <img src="photo22.jpg" onclick="note('Kirii ennodaa Akka 😏 Kudumbathula enna vishyam naalum unkita keta therinjrum. You are destined for greatness, unakke puriyum oru naal. Inimel konjam sambavam panrada kammi pannanum namma. Whatever happens, enna aanalum, We are always here for you. IM ALWAYS HERE FOR YOU ❤️')">
             <div class="caption">Murai Thalaivii</div>
         </div>
         <div>
-            <img src="photo33.jpg" onclick="note('Definition of Life of the Party  Udanee rombaa parakkada, Karu mattum dhan un joke ku sirippa . Un innocence la poi 100 years achu nu theriyum but irundalum unakkula irukre andha soul ah, andha joy ah vitradhaa. Naa sonna advice nyambagam vechiko di✨')">
+            <img src="photo33.jpg" onclick="note('Definition of Life of the Party 😎 Udanee rombaa parakkada, Karu mattum dhan un joke ku sirippa. Un innocence la poi 100 years achu nu theriyum but irundalum unakkula irukre andha soul ah, andha joy ah vitradhaa. Naa sonna advice nyambagam vechiko di✨')">
             <div class="caption">Kolandhaaa</div>
         </div>
     </div>
     <div class="gallery" style="display:grid; grid-template-columns: repeat(3,1fr); gap:10px; justify-items:center; margin-top:10px;">
         <div>
-            <img src="photo44.jpg" onclick="note('Vazhkaila evlo thooram ponalum, enga ponalum, nenja adichu solluven enga gurujii na adhu sauji dhan. Epdiyoo Aussie ku escape aitee , Nee physical ah escape airklam ana mental ah unna naanga vidave maatom nimmadiya. Evlo mudiyumo avlo vandu paaru. Un kozhanda mattum puluthi madiri accent le pesichu veiyuu senjirven diii  Miss you so much  💞')">
+            <img src="photo44.jpg" onclick="note('Vazhkaila evlo thooram ponalum, enga ponalum, nenja adichu solluven enga gurujii na adhu sauji dhan. Epdiyoo Aussie ku escape aitee, Nee physical ah escape airklam ana mental ah unna naanga vidave maatom nimmadiya. Evlo mudiyumo avlo vandu paaru. Un kozhanda mattum puluthi madiri accent le pesichu veiyuu senjirven diii 😌 Miss you so much 💞')">
             <div class="caption">Gurujii</div>
         </div>
         <div>
-            <img src="photo55.jpg" onclick="note('We have gone through our whole childhood together, through the highs and lows of it. I know for a fact that i will never ever meet someone in life i love as much as i love you guys. Open ah sollirken, my best friends are my cousins without thinking for a second. Here's to spending our adulthood together too. I love you guys😌', 'photo5')">
+            <img src="photo55.jpg" onclick="note('We have gone through our whole childhood together, through the highs and lows of it. I know for a fact that i will never ever meet someone in life i love as much as i love you guys. Open ah sollirken, my best friends are my cousins without thinking for a second. Here\'s to spending our adulthood together too. I love you guys😌')">
             <div class="caption">US❤️🤗</div>
         </div>
         <div>
-            <img src="photo66.jpg" onclick="note('Unna pathi enakku theriyum, Enna pathi unakku theriyum ana nammala pathi yaarukum theriya koodadu . Unkita pudusa solrathuku onnum illaa, anyway daily soltu dhan iruken  My Partha! You know i love you right 😘')">
+            <img src="photo66.jpg" onclick="note('Unna pathi enakku theriyum, Enna pathi unakku theriyum ana nammala pathi yaarukum theriya koodadu. Unkita pudusa solrathuku onnum illaa, anyway daily soltu dhan iruken 😘 My Partha! You know i love you right 😘')">
             <div class="caption">Unmai Kadhali</div>
         </div>
     </div>
@@ -259,7 +255,7 @@ input[type=password] {
 
 <!-- Screen 5 -->
 <div class="screen" id="s5">
-    <h1>Namma evloo thooram ponalum, evlo busy aanalum, enna prechena vandalum, evloo time analum, Till i die, I will love you guys. You mean the world to me 
+    <h1>Namma evloo thooram ponalum, evlo busy aanalum, enna prechena vandalum, evloo time analum, Till i die, I will love you guys. You mean the world to me 😌
 We will love each other, no matter what. All for one and one for all</h1>
     <p>No matter the distance, you'll always be my HOME ❤️</p>
     <div style="font-size:100px;">❤️</div>
@@ -318,14 +314,11 @@ function quiz(){
     setTimeout(()=>next(3),1200);
 }
 
-function note(text, photoId){
+function note(text){
     const popup = document.getElementById("popup");
     const popupText = document.getElementById("popupText");
     popupText.innerHTML = text;
     popupText.style.animation = "sparkle 1s infinite";
-    // Remove special class first
-    popupText.classList.remove('photo5');
-    if(photoId==='photo5') popupText.classList.add('photo5'); // smaller font for photo5
     document.getElementById("overlay").style.display = "block";
     popup.style.display = "flex";
     popup.style.visibility = "visible";
