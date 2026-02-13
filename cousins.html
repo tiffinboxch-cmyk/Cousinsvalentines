@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine</title>
+
+<!-- Google Fonts for cursive style -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Great Vibes', cursive; /* only change here */
+    background: #ffc0cb;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.screen { display: none; padding: 40px 20px; }
+.active { display: block; }
+
+h1 { font-size: 2.8rem; margin-top: 35vh; }
+
+button {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    margin-top: 30px;
+}
+
+input[type=password] {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 2px solid #ff4d6d;
+    margin-top: 20px;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    font-size: 20px;
+    animation: float 6s linear forwards;
+}
+
+@keyframes float {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-700px); opacity: 0; }
+}
+
+/* Cupid below Continue button */
+.cupid {
+    font-size: 40px;
+    margin-top: 20px;
+    animation: fly 2s infinite alternate;
+}
+
+.cupid:nth-child(1) { animation-delay: 0s; }
+
+@keyframes fly {
+    from { transform: translateX(-20px); }
+    to { transform: translateX(20px); }
+}
+
+/* Memory gallery images */
+.gallery {
+    text-align: center;
+}
+
+.gallery img {
+    width: 90px;
+    border-radius: 15px;
+    margin: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.caption {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Romantic popup */
+.overlay {
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    z-index: 999;
+}
+
+.popup {
+    display: none;
+    visibility: hidden;
+    position:fixed;
+    top:50%; 
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:#fff0f5;
+    padding:20px;
+    border-radius:25px;
+    box-shadow: 0 0 30px pink;
+    max-width:90%;
+    max-height:80vh;
+    overflow-y:auto;
+    text-align:center;
+    z-index:1000;
+    opacity: 0;
+    animation: fadeIn 0.7s forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Glowing pink text inside popup */
+#popupText {
+    font-size: 1.4rem; /* default slightly smaller than before */
+    color: #ff69b4;
+    text-shadow: 0 0 5px #ffb6c1, 0 0 10px #ff69b4;
+}
+
+/* Special style for photo5 popup */
+#popupText.photo5 {
+    font-size: 1.1rem; /* smaller font so it fits the long text */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -55%) scale(0.95); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    to   { opacity: 0; transform: translate(-50%, -55%) scale(0.95); }
+}
+
+@keyframes sparkle {
+    0%, 100% { text-shadow: 0 0 2px pink; }
+    50% { text-shadow: 0 0 12px #ff69b4, 0 0 15px #ffb6c1; }
+}
+
+/* Hearts shot by cupids */
+.cupidHeart {
+    position: absolute;
+    font-size: 16px;
+    animation: cupidHeartMove 2s linear forwards;
+}
+
+/* Grand explosion hearts/stars */
+.explosion {
+    position: absolute;
+    font-size: 20px;
+    animation: explodeAnim 2s ease-out forwards;
+}
+
+@keyframes explodeAnim {
+    0% { transform: translate(0,0) scale(0.5); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+}
+
+/* Final big heart will appear only on YES click */
+#bigHeart {
+    position: fixed;
+    font-size: 120px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    opacity:0;
+    animation: bigHeartFade 2s forwards;
+    z-index: 2000;
+}
+
+@keyframes bigHeartFade {
+    0% { opacity:0; transform:translate(-50%,-50%) scale(0.5); }
+    50% { opacity:1; transform:translate(-50%,-50%) scale(1.4); }
+    100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+}
+
+/* Final screen font */
+#s5 h1 { font-size: 4rem; font-weight:bold; margin-top:25vh; }
+#s5 p { font-size: 2.5rem; font-weight:bold; }
+</style>
+</head>
+
+<body>
+
+<!-- Screen 0: Password -->
+<div class="screen active" id="s0">
+    <h1>What is that place we call as Heaven on Earth? 💌</h1>
+    <input type="password" id="passInput" placeholder="Type here...">
+    <button onclick="checkPassword()">Submit ✅</button>
+    <p id="passMsg" style="color:red; font-weight:bold;"></p>
+</div>
+
+<!-- Screen 1 -->
+<div class="screen" id="s1">
+    <h1>Happy Valentines day, my babies ❤️</h1>
+    <button onclick="start()">Continue 💌</button>
+    <div class="cupid">👶🏹❤️</div>
+</div>
+
+<!-- Screen 2 -->
+<div class="screen" id="s2">
+    <h1>What’s the favouite memory of the cousins?</h1>
+    <button onclick="quiz()">3rd floor sarakku parties🍻</button>
+    <button onclick="quiz()">Pondy beach walks🌊</button>
+    <button onclick="quiz()">All of us sharing the same bed💝</button>
+    <button onclick="quiz()">Marriage functions🪅</button>
+</div>
+
+<!-- Screen 3: Valentines Week -->
+<div class="screen" id="s3">
+    <h1>SIXXX 💕</h1>
+    <div class="gallery" style="display:grid; grid-template-columns: repeat(4,1fr); gap:10px; justify-items:center;">
+        <div>
+            <img src="photo11.jpg" onclick="note('Varshuu you brighten up every place wherever you go. Yaaruku enna prechena naalum firstu varuvee. Bro code mattum adichirada . And kavalapadatha Area counselor ku onnu na naanga varuvom. Eppomee Karpurama iruu. I lovee you 💖')">
+            <div class="caption">Mommy of the group</div>
+        </div>
+        <div>
+            <img src="photo22.jpg" onclick="note('Kirii ennodaa Akka  Kudumbathula enna vishyam naalum unkita keta therinjrum. You are destined for greatness, unakke puriyum oru naal. Inimel konjam sambavam panrada kammi pannanum namma . Whatever happens, enna aanalum, We are always here for you. IM ALWAYS HERE FOR YOU ❤️ ')">
+            <div class="caption">Murai Thalaivii</div>
+        </div>
+        <div>
+            <img src="photo33.jpg" onclick="note('Definition of Life of the Party  Udanee rombaa parakkada, Karu mattum dhan un joke ku sirippa . Un innocence la poi 100 years achu nu theriyum but irundalum unakkula irukre andha soul ah, andha joy ah vitradhaa. Naa sonna advice nyambagam vechiko di✨')">
+            <div class="caption">Kolandhaaa</div>
+        </div>
+    </div>
+    <div class="gallery" style="display:grid; grid-template-columns: repeat(3,1fr); gap:10px; justify-items:center; margin-top:10px;">
+        <div>
+            <img src="photo44.jpg" onclick="note('Vazhkaila evlo thooram ponalum, enga ponalum, nenja adichu solluven enga gurujii na adhu sauji dhan. Epdiyoo Aussie ku escape aitee , Nee physical ah escape airklam ana mental ah unna naanga vidave maatom nimmadiya. Evlo mudiyumo avlo vandu paaru. Un kozhanda mattum puluthi madiri accent le pesichu veiyuu senjirven diii  Miss you so much  💞')">
+            <div class="caption">Gurujii</div>
+        </div>
+        <div>
+            <img src="photo55.jpg" onclick="note('We've gone through our whole childhood together, through the highs and lows of it. I know for a fact that i will never ever meet someone in life i love as much as i love you guys. Open ah sollirken, my best friends are my cousins without thinking for a second. Here's to spending our adulthood together too. I love you guys😌')">
+            <div class="caption">US❤️🤗</div>
+        </div>
+        <div>
+            <img src="photo66.jpg" onclick="note('Unna pathi enakku theriyum, Enna pathi unakku theriyum ana nammala pathi yaarukum theriya koodadu . Unkita pudusa solrathuku onnum illaa, anyway daily soltu dhan iruken  My Partha! You know i love you right 😘')">
+            <div class="caption">Unmai Kadhali</div>
+        </div>
+    </div>
+    <button onclick="next(4)">Next 💘</button>
+</div>
+
+<!-- Screen 4 -->
+<div class="screen" id="s4">
+    <h1>Will you be my Valentine always? 💘</h1>
+    <button onclick="yes()">YES ❤️</button>
+    <button id="noBtn">NO 🩴</button>
+</div>
+
+<!-- Screen 5 -->
+<div class="screen" id="s5">
+    <h1>Namma evloo thooram ponalum, evlo busy aanalum, enna prechena vandalum, evloo time analum, Till i die, I will love you guys. You mean the world to me 
+We will love each other, no matter what. All for one and one for all</h1>
+    <p>No matter the distance, you'll always be my HOME ❤️</p>
+    <div style="font-size:100px;">❤️</div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <p id="popupText"></p>
+    <button onclick="closePop()">Close</button>
+</div>
+
+<div id="bigHeart"></div>
+
+<audio id="music" src="jalsa.mp3" loop></audio>
+
+<script>
+const music = document.getElementById("music");
+let noCount = 0;
+
+// Floating hearts everywhere
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top="100vh";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},500);
+
+function checkPassword(){
+    const input = document.getElementById("passInput").value;
+    const msg = document.getElementById("passMsg");
+    if(input === "Pondy"){
+        document.getElementById("s0").classList.remove("active");
+        document.getElementById("s1").classList.add("active");
+        music.play().catch(()=>{});
+    } else {
+        msg.textContent = "Wrong answer 😢 Try again!";
+    }
+}
+
+function start(){
+    music.play().catch(()=>{});
+    next(2);
+}
+
+function next(n){
+    document.querySelector('.active').classList.remove('active');
+    document.getElementById('s'+n).classList.add('active');
+}
+
+function quiz(){
+    explode("✨");
+    note("There is no right answer, every memory is our favouite 💖");
+    setTimeout(()=>next(3),1200);
+}
+
+function note(text, photoId){
+    const popup = document.getElementById("popup");
+    const popupText = document.getElementById("popupText");
+    popupText.innerHTML = text;
+    popupText.style.animation = "sparkle 1s infinite";
+    // Remove special class first
+    popupText.classList.remove('photo5');
+    if(photoId==='photo5') popupText.classList.add('photo5'); // smaller font for photo5
+    document.getElementById("overlay").style.display = "block";
+    popup.style.display = "flex";
+    popup.style.visibility = "visible";
+    popup.style.animation = "fadeIn 0.7s forwards";
+}
+
+function closePop(){
+    const popup = document.getElementById("popup");
+    popup.style.animation = "fadeOut 0.5s forwards";
+    document.getElementById("overlay").style.display="none";
+    setTimeout(()=>{ popup.style.display="none"; popup.style.visibility="hidden"; }, 500);
+}
+
+function explode(sym){
+    for(let i=0;i<30;i++){
+        let s=document.createElement("div");
+        s.className="heart";
+        s.innerHTML=sym;
+        s.style.left=Math.random()*100+"vw";
+        s.style.top="60vh";
+        s.style.fontSize=(15+Math.random()*25)+"px";
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),1500);
+    }
+}
+
+document.getElementById("noBtn").addEventListener("touchstart",()=>{
+    noCount++;
+    if(noCount>=10){
+        note("<b>Avloodhan unakku mariyadhai🖕Seruppala adipen naaye 🩴Mariyadhaiya yes sollu 😤Othaa thappikavee mudiyadu unnalaa 😏</b>");
+        return;
+    }
+    let b=document.getElementById("noBtn");
+    b.style.position="absolute";
+    b.style.left=Math.random()*70+"vw";
+    b.style.top=Math.random()*70+"vh";
+});
+
+function yes(){
+    const symbols=["❤️","✨","💖","💘","💫"];
+    for(let i=0;i<60;i++){
+        let e=document.createElement("div");
+        e.className="explosion";
+        e.innerHTML=symbols[Math.floor(Math.random()*symbols.length)];
+        e.style.left = Math.random()*window.innerWidth+"px";
+        e.style.top = Math.random()*window.innerHeight+"px";
+        e.style.setProperty('--x', (Math.random()*500-250)+"px");
+        e.style.setProperty('--y', (Math.random()*500-250)+"px");
+        e.style.fontSize=(20+Math.random()*40)+"px";
+        document.body.appendChild(e);
+        setTimeout(()=>e.remove(),2500);
+    }
+    const bh = document.getElementById("bigHeart");
+    bh.style.opacity = 1;
+    note("<img src='photo9.jpg' style='width:90%; border-radius:15px;'>");
+    setTimeout(()=>next(5),2500);
+}
+</script>
+
+</body>
+</html>
